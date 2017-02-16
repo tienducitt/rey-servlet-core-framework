@@ -44,7 +44,7 @@ public class ServletMethod {
         }
         
         public void buildFullPath() {
-                String fp = RWebServer.getINSTANCE().getContextPath() + servletObject.getServletPath() + url;
+                String fp = RWebServer.getINSTANCE().getContextPath() + "/" + servletObject.getServletPath() + url;
                 fp = Utils.replaceAllDupSlash(fp);
                 this.fullPath = fp;
         }
