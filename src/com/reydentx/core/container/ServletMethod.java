@@ -7,6 +7,7 @@ package com.reydentx.core.container;
 
 import com.reydentx.core.annotation.RResponseBody;
 import com.reydentx.core.annotation.RServletMapping;
+import com.reydentx.core.common.Utils;
 import com.reydentx.core.entity.RequestMethod;
 import com.reydentx.core.server.RWebServer;
 import java.lang.reflect.InvocationTargetException;
@@ -36,11 +37,18 @@ public class ServletMethod {
                         ret.requestMethod = method.getAnnotation(RServletMapping.class).method();
                         ret.url = method.getAnnotation(RServletMapping.class).url().toLowerCase();
                         ret.responseBody = method.isAnnotationPresent(RResponseBody.class);
+                        ret.buildFullPath();
                 }
 
                 return ret;
         }
-
+        
+        public void buildFullPath() {
+                String fp = RWebServer.getINSTANCE().getContextPath() + servletObject.getServletPath() + url;
+                fp = Utils.replaceAllDupSlash(fp);
+                this.fullPath = fp;
+        }
+        
         public Object invoke(Object... param) throws Throwable {
                 try {
                 return method.invoke(servletObject.getServletInstance(), param);
@@ -67,7 +75,7 @@ public class ServletMethod {
         }
 
         public String getFullPath() {
-                return RWebServer.getINSTANCE().getContextPath() + servletObject.getServletPath() + url;
+                return fullPath;
         }
 
         public void setFullPath(String fullPath) {

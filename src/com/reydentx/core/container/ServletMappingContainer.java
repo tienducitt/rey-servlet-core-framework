@@ -12,6 +12,7 @@ import com.reydentx.core.exception.RNotExistHandler;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
+import org.eclipse.jetty.http.PathMap;
 
 /**
  *
@@ -19,7 +20,8 @@ import java.util.List;
  */
 public class ServletMappingContainer {
 
-        private static List<ServletMethod> LIST_HANDLER = new ArrayList<>();
+        private static PathMap GET_MAP = new PathMap();
+        private static PathMap POST_MAP = new PathMap();
 
         public static void init(String handlerPackage) {
                 Class[] handlers = ClassLoaderUtils.getClasses(handlerPackage);
@@ -30,8 +32,19 @@ public class ServletMappingContainer {
 
                                 for (Method method : handler.getMethods()) {
                                         ServletMethod servletMethod = ServletMethod.newInstance(method, servlet);
+                                        
                                         if (servletMethod != null) {
-                                                LIST_HANDLER.add(servletMethod);
+                                                switch (servletMethod.getRequestMethod()) {
+                                                        case GET: {
+                                                                GET_MAP.put(servletMethod.getFullPath(), servletMethod);
+                                                                break;
+                                                        }
+                                                        case POST: {
+                                                                POST_MAP.put(servletMethod.getFullPath(), servletMethod);
+                                                                break;
+                                                        }
+                                                }
+                                                //LIST_HANDLER.add(servletMethod);
                                                 
                                                 System.out.println(servletMethod.getRequestMethod() 
                                                         + ": " + servletMethod.getFullPath()
@@ -44,11 +57,19 @@ public class ServletMappingContainer {
         }
 
         public static ServletMethod getServletMethod(RequestInfo reqInfo) throws RNotExistHandler {
-                for (ServletMethod method : LIST_HANDLER) {
-                        if (method.getRequestMethod() == reqInfo.getRequestMethod()
-                                && reqInfo.getPath().startsWith(method.getFullPath())) {
-                                return method;
+                ServletMethod ret = null;
+                switch(reqInfo.getRequestMethod()) {
+                        case GET: {
+                                ret = (ServletMethod) GET_MAP.match(reqInfo.getPath());
+                                break;
+                        } 
+                        case POST: {
+                                ret = (ServletMethod) POST_MAP.match(reqInfo.getPath());
+                                break;
                         }
+                }
+                if(ret != null) {
+                        return ret;
                 }
 
                 throw new RNotExistHandler(reqInfo.getRequestMethod() + ":" + reqInfo.getPath() + " is not supported");

@@ -17,12 +17,15 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- *
+ * 
  * @author ducnt3
  */
 @RController(url = "home")
 public class ExampleHandler extends BaseHandler {
-
+        
+        /**
+         * 
+         */
         @RServletMapping(url = "/getJSONData", method = RequestMethod.GET)
         public String renderExample(HttpServletRequest req, HttpServletResponse resp) throws IOException, RResponseException {
                 
@@ -51,4 +54,6 @@ public class ExampleHandler extends BaseHandler {
                 resp.getWriter().write("Hello world, this is my custome framework");
                 resp.getWriter().close();
         }
+        
+        
 }
