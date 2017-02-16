@@ -10,8 +10,6 @@ import com.reydentx.core.common.ClassLoaderUtils;
 import com.reydentx.core.entity.RequestInfo;
 import com.reydentx.core.exception.RNotExistHandler;
 import java.lang.reflect.Method;
-import java.util.ArrayList;
-import java.util.List;
 import org.eclipse.jetty.http.PathMap;
 
 /**
@@ -44,7 +42,6 @@ public class ServletMappingContainer {
                                                                 break;
                                                         }
                                                 }
-                                                //LIST_HANDLER.add(servletMethod);
                                                 
                                                 System.out.println(servletMethod.getRequestMethod() 
                                                         + ": " + servletMethod.getFullPath()
