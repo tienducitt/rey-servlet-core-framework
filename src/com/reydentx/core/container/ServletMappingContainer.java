@@ -28,7 +28,7 @@ public class ServletMappingContainer {
                         if (handler.isAnnotationPresent(RController.class)) {
                                 ServletObject servlet = new ServletObject(handler);
 
-                                for (Method method : handler.getMethods()) {
+                                for (Method method : handler.getDeclaredMethods()) {
                                         ServletMethod servletMethod = ServletMethod.newInstance(method, servlet);
                                         
                                         if (servletMethod != null) {

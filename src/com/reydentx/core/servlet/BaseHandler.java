@@ -33,19 +33,6 @@ public class BaseHandler extends HttpServlet {
         protected static final Logger _LOG = Logger.getLogger(BaseHandler.class);
         
         //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-        public TemplateDataDictionary getBaseDictionary() {
-                TemplateDataDictionary dic = TemplateDictionary.create();
-
-                return dic;
-        }
-
-        public String applyTemplate(TemplateDataDictionary dic, String tplName) throws TemplateException {
-                TemplateLoader templateLoader = TemplateResourceLoader.create("com/reydentx/views/");
-                Template template = templateLoader.getTemplate(tplName);
-                String ret = template.renderToString(dic);
-
-                return ret;
-        }
         
         protected void printObjectAsJSON(Object object, HttpServletResponse resp) {
                 try {
