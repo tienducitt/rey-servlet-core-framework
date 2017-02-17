@@ -31,7 +31,7 @@ public class CoreHandler extends BaseHandler {
                 }
         }
 
-        public RResultWrapper handle(HttpServletRequest req, HttpServletResponse resp) {
+        public RResultWrapper handle(HttpServletRequest req, HttpServletResponse resp) throws IOException {
                 try {
                         RequestInfo reqInfo = ServletUtils.getRequestInfo(req, CONTEXT_PATH);
                         ServletMethod servletMethod = ServletMappingContainer.getServletMethod(reqInfo);
@@ -41,6 +41,7 @@ public class CoreHandler extends BaseHandler {
                                 return RResultWrapper.newSuccessResult(serviceResult);
                         }
                 } catch (RNotExistHandler ex) {
+                        resp.sendError(HttpServletResponse.SC_NOT_FOUND);
                         return RResultWrapper.newErrorResult(ex.getMessage());
                 } catch (RResponseException ex) {
                         return RResultWrapper.newErrorResult(ex.getErrorCode(), ex.getMessage());
