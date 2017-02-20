@@ -29,20 +29,19 @@ import org.apache.log4j.Logger;
 public class BaseHandler extends HttpServlet {
 
         protected static final String CONTEXT_PATH = RWebServer.INSTANCE.getContextPath();
-        
+
         protected static final Logger _LOG = Logger.getLogger(BaseHandler.class);
-        
+
         //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-        
         protected void printObjectAsJSON(Object object, HttpServletResponse resp) {
                 try {
-			if (object != null) {
-				resp.setCharacterEncoding("UTF-8");
-				resp.getWriter().print(JSONUtils.toJson(object));
-			}
-		} catch (Exception ex) {
-			_LOG.error(ex.getMessage(), ex);
-		}
+                        if (object != null) {
+                                resp.setCharacterEncoding("UTF-8");
+                                resp.getWriter().print(JSONUtils.toJson(object));
+                        }
+                } catch (Exception ex) {
+                        _LOG.error(ex.getMessage(), ex);
+                }
         }
 
         protected void printJSON(Object json, HttpServletResponse resp) {

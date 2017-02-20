@@ -7,7 +7,7 @@ package com.reydentx.core.container;
 
 import com.reydentx.core.annotation.RResponseBody;
 import com.reydentx.core.annotation.RServletMapping;
-import com.reydentx.core.common.Utils;
+import com.reydentx.core.common.RUtil;
 import com.reydentx.core.entity.RequestMethod;
 import com.reydentx.core.server.RWebServer;
 import java.lang.reflect.InvocationTargetException;
@@ -45,7 +45,7 @@ public class ServletMethod {
         
         public void buildFullPath() {
                 String fp = RWebServer.getINSTANCE().getContextPath() + "/" + servletObject.getServletPath() + url;
-                fp = Utils.replaceAllDupSlash(fp);
+                fp = RUtil.replaceAllDupSlash(fp);
                 this.fullPath = fp;
         }
         
