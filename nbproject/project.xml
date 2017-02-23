@@ -5,6 +5,7 @@
         <data xmlns="http://www.netbeans.org/ns/j2se-project/3">
             <name>rey-servlet-core-framework</name>
             <source-roots>
+                <root id="src.conf.dir"/>
                 <root id="src.public.dir"/>
                 <root id="src.dir"/>
             </source-roots>
