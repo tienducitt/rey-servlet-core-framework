@@ -20,7 +20,7 @@ import java.lang.reflect.Method;
 public class ServletMethod {
 
         private ServletObject servletObject;
-        
+
         private RequestMethod requestMethod;
         private String url;
         private String fullPath;
@@ -42,16 +42,16 @@ public class ServletMethod {
 
                 return ret;
         }
-        
+
         public void buildFullPath() {
-                String fp = RWebServer.getINSTANCE().getContextPath() + "/" + servletObject.getServletPath() + url;
+                String fp = RWebServer.getINSTANCE().getContextPath() + "/" + servletObject.getServletPath() + "/" + url;
                 fp = RUtil.replaceAllDupSlash(fp);
                 this.fullPath = fp;
         }
-        
+
         public Object invoke(Object... param) throws Throwable {
                 try {
-                return method.invoke(servletObject.getServletInstance(), param);
+                        return method.invoke(servletObject.getServletInstance(), param);
                 } catch (InvocationTargetException ex) {
                         throw ex.getCause();
                 }
@@ -105,6 +105,5 @@ public class ServletMethod {
         public void setResponseBody(boolean responseBody) {
                 this.responseBody = responseBody;
         }
-        
-        
+
 }

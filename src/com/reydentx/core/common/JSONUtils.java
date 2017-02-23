@@ -27,82 +27,97 @@ import com.google.gson.JsonParseException;
 import com.google.gson.JsonPrimitive;
 import com.google.gson.JsonSerializationContext;
 import com.google.gson.JsonSerializer;
+import javax.servlet.http.HttpServletRequest;
+import org.apache.log4j.Logger;
 
 /**
  *
  * @author ducnt3
  */
 public class JSONUtils {
+        
+        private static final Logger _logger = Logger.getLogger(JSONUtils.class);
         private static Gson GSON = null;
-	private static final Map<Enum<?>, String> MAP_ENUM_TO_SERIALIZED_NAME = new HashMap<Enum<?>, String>();
+        private static final Map<Enum<?>, String> MAP_ENUM_TO_SERIALIZED_NAME = new HashMap<Enum<?>, String>();
 
-	static {
-		GsonBuilder gsonBuilder = new GsonBuilder();
-		gsonBuilder.registerTypeAdapter(BufferedImage.class, new BufferedImageDeserializer());
-		gsonBuilder.registerTypeAdapter(BufferedImage.class, new BufferedImageSerializer());
-		GSON = gsonBuilder.create();
-	}
+        static {
+                GsonBuilder gsonBuilder = new GsonBuilder();
+                gsonBuilder.registerTypeAdapter(BufferedImage.class, new BufferedImageDeserializer());
+                gsonBuilder.registerTypeAdapter(BufferedImage.class, new BufferedImageSerializer());
+                GSON = gsonBuilder.create();
+        }
 
-	public static class BufferedImageDeserializer implements JsonDeserializer<BufferedImage> {
-		@Override
-		public BufferedImage deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext ctx) throws JsonParseException {
-			String strBase64 = (String) ctx.deserialize(json, String.class);
-			if (strBase64.startsWith("data:image/")) {
-				strBase64 = strBase64.substring(strBase64.indexOf(",") + 1, strBase64.length());
-			}
-			return decodeToImage(strBase64);
-		}
-	}
+        public static class BufferedImageDeserializer implements JsonDeserializer<BufferedImage> {
 
-	public static class BufferedImageSerializer implements JsonSerializer<BufferedImage> {
+                @Override
+                public BufferedImage deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext ctx) throws JsonParseException {
+                        String strBase64 = (String) ctx.deserialize(json, String.class);
+                        if (strBase64.startsWith("data:image/")) {
+                                strBase64 = strBase64.substring(strBase64.indexOf(",") + 1, strBase64.length());
+                        }
+                        return decodeToImage(strBase64);
+                }
+        }
 
-		@Override
-		public JsonElement serialize(BufferedImage src, Type typeOfSrc, JsonSerializationContext ctx) {
-			return new JsonPrimitive(encodeToString(src, "jpg"));
-		}
-	}
+        public static class BufferedImageSerializer implements JsonSerializer<BufferedImage> {
 
-	private static String encodeToString(BufferedImage image, String type) {
-		String imageString = null;
-		ByteArrayOutputStream bos = new ByteArrayOutputStream();
-		try {
-			ImageIO.write(image, type, bos);
-			byte[] imageBytes = bos.toByteArray();
-			imageString = Base64.encodeBase64String(imageBytes);
-			bos.close();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		return imageString;
-	}
+                @Override
+                public JsonElement serialize(BufferedImage src, Type typeOfSrc, JsonSerializationContext ctx) {
+                        return new JsonPrimitive(encodeToString(src, "jpg"));
+                }
+        }
 
-	private static BufferedImage decodeToImage(String imageString) {
-		BufferedImage image = null;
-		byte[] imageByte;
-		try {
-			imageByte = Base64.decodeBase64(imageString);
-			ByteArrayInputStream bis = new ByteArrayInputStream(imageByte);
-			image = ImageIO.read(bis);
-			bis.close();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return image;
-	}
+        private static String encodeToString(BufferedImage image, String type) {
+                String imageString = null;
+                ByteArrayOutputStream bos = new ByteArrayOutputStream();
+                try {
+                        ImageIO.write(image, type, bos);
+                        byte[] imageBytes = bos.toByteArray();
+                        imageString = Base64.encodeBase64String(imageBytes);
+                        bos.close();
+                } catch (IOException e) {
+                        e.printStackTrace();
+                }
+                return imageString;
+        }
 
-	public static <T> T fromJson(BufferedReader reader, Type type) {
-		return GSON.fromJson(reader, type);
-	}
+        private static BufferedImage decodeToImage(String imageString) {
+                BufferedImage image = null;
+                byte[] imageByte;
+                try {
+                        imageByte = Base64.decodeBase64(imageString);
+                        ByteArrayInputStream bis = new ByteArrayInputStream(imageByte);
+                        image = ImageIO.read(bis);
+                        bis.close();
+                } catch (Exception e) {
+                        e.printStackTrace();
+                }
+                return image;
+        }
 
-	public static <T> String toJson(T object) {
-		return GSON.toJson(object);
-	}
+        public static <T> T fromJson(HttpServletRequest req, Type type) {
+                try {
+                        return GSON.fromJson(req.getReader(), type);
+                } catch (Exception ex) {
+                        _logger.error(ex.getMessage(), ex);
+                }
+                
+                return null;
+        }
 
-	public static <T> T fromJson(String json, Class<T> clazz) {
-		return GSON.fromJson(json, clazz);
-	}
+        public static <T> T fromJson(BufferedReader reader, Type type) {
+                return GSON.fromJson(reader, type);
+        }
 
-	public static <T> T serializedNameToEnum(String name, Class<T> clazz) {
-		return fromJson("\"" + name + "\"", clazz);
-	}
+        public static <T> String toJson(T object) {
+                return GSON.toJson(object);
+        }
+
+        public static <T> T fromJson(String json, Class<T> clazz) {
+                return GSON.fromJson(json, clazz);
+        }
+
+        public static <T> T serializedNameToEnum(String name, Class<T> clazz) {
+                return fromJson("\"" + name + "\"", clazz);
+        }
 }

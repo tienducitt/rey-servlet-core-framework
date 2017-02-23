@@ -34,38 +34,38 @@ public class HReqParam {
     ////////////////////////////////////////////////////////////////////////////
     ///specdatatype read with throwing exceptions
     ///
-    public static boolean getBoolean(HttpServletRequest req, String paramName) throws NotExistException, NumberFormatException, InvalidParamException {
+    private static boolean getBoolean(HttpServletRequest req, String paramName) throws NotExistException, NumberFormatException, InvalidParamException {
         String strVal = _getParameterAsString(req, paramName);
 
         Boolean ret = Boolean.parseBoolean(strVal);
         return ret;
     }
 
-    public static byte getByte(HttpServletRequest req, String paramName) throws NotExistException, NumberFormatException, InvalidParamException {
+    private static byte getByte(HttpServletRequest req, String paramName) throws NotExistException, NumberFormatException, InvalidParamException {
         return Byte.parseByte(_getParameterAsString(req, paramName));
     }
 
-    public static double getDouble(HttpServletRequest req, String paramName) throws NotExistException, NumberFormatException, InvalidParamException {
+    private static double getDouble(HttpServletRequest req, String paramName) throws NotExistException, NumberFormatException, InvalidParamException {
         return Double.parseDouble(_getParameterAsString(req, paramName));
     }
 
-    public static float getFloat(HttpServletRequest req, String paramName) throws NotExistException, NumberFormatException, InvalidParamException {
+    private static float getFloat(HttpServletRequest req, String paramName) throws NotExistException, NumberFormatException, InvalidParamException {
         return Float.parseFloat(_getParameterAsString(req, paramName));
     }
 
-    public static int getInt(HttpServletRequest req, String paramName) throws NotExistException, NumberFormatException, InvalidParamException {
+    private static int getInt(HttpServletRequest req, String paramName) throws NotExistException, NumberFormatException, InvalidParamException {
         return Integer.parseInt(_getParameterAsString(req, paramName));
     }
 
-    public static long getLong(HttpServletRequest req, String paramName) throws NotExistException, NumberFormatException, InvalidParamException {
+    private static long getLong(HttpServletRequest req, String paramName) throws NotExistException, NumberFormatException, InvalidParamException {
         return Long.parseLong(_getParameterAsString(req, paramName));
     }
 
-    public static short getShort(HttpServletRequest req, String paramName) throws NotExistException, NumberFormatException, InvalidParamException {
+    private static short getShort(HttpServletRequest req, String paramName) throws NotExistException, NumberFormatException, InvalidParamException {
         return Short.parseShort(_getParameterAsString(req, paramName));
     }
 
-    public static String getString(HttpServletRequest req, String paramName) throws NotExistException, InvalidParamException {
+    private static String getString(HttpServletRequest req, String paramName) throws NotExistException, InvalidParamException {
         return _getParameterAsString(req, paramName);
     }
 

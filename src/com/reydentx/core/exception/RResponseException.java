@@ -12,7 +12,27 @@ package com.reydentx.core.exception;
 public class RResponseException extends Exception {
         private int errorCode = -1;
         
-        public RResponseException(String message) {
+        public static RResponseException newInvalidDataEx() {
+                return new RResponseException("Thao tác thất bại, dữ liệu không hợp lệ.");
+        }
+        
+        public static RResponseException newNotExistDataEx() {
+                return new RResponseException("Thao tác thất bại, dữ liệu không tồn tại.");
+        }
+        
+        public static RResponseException newPermissionDeniEx() {
+                return new RResponseException("Bạn không có quyền thực hiện thao tác này.");
+        }
+        
+        public static RResponseException newActionFailEx(int err) {
+                return new RResponseException("Thao tác thất bại, vui lòng thử lại sau (" + err + ")");
+        }
+        
+        public static RResponseException newEx(String message) {
+                return new RResponseException(message);
+        }
+        
+        private RResponseException(String message) {
                 super(message);
         }
         

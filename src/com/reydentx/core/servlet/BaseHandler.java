@@ -7,12 +7,6 @@ package com.reydentx.core.servlet;
 
 import com.reydentx.core.common.JSONUtils;
 import com.reydentx.core.server.RWebServer;
-import hapax.Template;
-import hapax.TemplateDataDictionary;
-import hapax.TemplateDictionary;
-import hapax.TemplateException;
-import hapax.TemplateLoader;
-import hapax.TemplateResourceLoader;
 import java.io.BufferedInputStream;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;

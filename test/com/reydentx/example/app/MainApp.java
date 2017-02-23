@@ -18,7 +18,7 @@ import org.eclipse.jetty.server.handler.ResourceHandler;
 public class MainApp {
 
         public static void main(String[] args) {
-                RWebServer.INSTANCE.init(8082, "com.reydentx.example.handler", "/ducnt3")
+                RWebServer.INSTANCE.init(8082, "com.reydentx.example.handler", "/")
                         // filters
                         .addFilter(StaticResourceFilter.class, "/*")
                         .addFilter(ExampleFilter2.class, "/*");
