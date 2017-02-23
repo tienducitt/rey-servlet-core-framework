@@ -3,7 +3,7 @@
 My core lib that I use in my management web app. (MySQL, Servlet, AngularJS)
 ### 1. Servlet
 - Spring MVC-like annotations: @RController, @RServletMapping, @RResponseBody
-- Servlet always response JSON(errCode, data, message), if you don't want to, you have to response by yourself with HttpServletResponse object
+- Servlet always response JSON(errCode, data, message), if you don't want to, just response by using HttpServletResponse object
 - Throw RResponseException to quickly response a fail json result
 
 ### 2. Configuration
