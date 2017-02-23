@@ -2,8 +2,8 @@
 
 My core lib that I use in my management web app. (MySQL, Servlet, AngularJS)
 ### 1. Servlet
-- @RController, @RServletMapping, @RResponseBody to quickly mapping servlet <br/>
-- Servlet always response JSON(errCode, data, message), if you don't want to, you have to response by yourself
+- Spring MVC-like annotations: @RController, @RServletMapping, @RResponseBody
+- Servlet always response JSON(errCode, data, message), if you don't want to, you have to response by yourself with HttpServletResponse object
 - Throw RResponseException to quickly response a fail json result
 
 ### 2. Configuration
@@ -12,8 +12,8 @@ My core lib that I use in my management web app. (MySQL, Servlet, AngularJS)
 - import com.reydentx.core.config.RConfig <br>
 
 ### 3. MySQLClient
-- implement Connection Pool.
-- configure base on RConfig
+- implements Connection Pool.
+- configures base on RConfig
 
 ### 4. Log4j configuration file
 Different log levels to different files for all logger. See /conf/log4j.properties
