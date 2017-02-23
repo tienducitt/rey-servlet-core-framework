@@ -9,7 +9,8 @@ My core lib that I use in my management web app. (MySQL, Servlet, AngularJS)
 ### 2. Configuration
 - Support read configs in INI format
 - Default config directory: project_dir/con/[running_mode].config.ini (running_mode is zappprof system variable)
-- import com.reydentx.core.config.RConfig
+- import com.reydentx.core.config.RConfig <br>
+
 ### 3. MySQLClient
 - implement Connection Pool.
 - config base on RConfig
