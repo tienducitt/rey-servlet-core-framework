@@ -14,6 +14,8 @@ import org.apache.commons.lang.StringUtils;
  */
 public class TestCache extends GuavaBaseCache<Integer, String> {
 
+        public static TestCache INSTANCE = new TestCache("mainCache");
+
         public TestCache(String name) {
                 super(name);
         }
@@ -33,14 +35,13 @@ public class TestCache extends GuavaBaseCache<Integer, String> {
         String declareEmptyValue() {
                 return StringUtils.EMPTY;
         }
-        
+
         //~~~~~~~~~~~~~~~~~~ test app ~~~~~~~~~~~~~~~~~~~~~~~~~~`
         public static void main(String[] args) {
-                RCache cache = new TestCache("mainCache");
-                cache.get(1);
-                cache.put(2, "3");
-                
-                System.out.println(cache.get(1));
-                System.out.println(cache.get(2));
+                INSTANCE.get(1);
+                INSTANCE.put(2, "3");
+
+                System.out.println(INSTANCE.get(1));
+                System.out.println(INSTANCE.get(2));
         }
 }

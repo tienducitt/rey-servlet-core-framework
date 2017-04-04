@@ -17,3 +17,6 @@ My core lib that I use in my management web app. (MySQL, Servlet, AngularJS)
 
 ### 4. Log4j configuration file
 Different log levels to different files for all logger. See /conf/log4j.properties
+
+### 5. Caching
+RCache & GuavaBaseCache bases on guava
