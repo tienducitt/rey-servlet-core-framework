@@ -1,13 +1,6 @@
-/*
- * Copyright (c) 2012-2016 by Zalo Group.
- * All Rights Reserved.
- */
+
 package com.reydentx.core.common;
 
-/**
- *
- * @author namnq
- */
 public class CompositeKey {
 
 	public static class Two<T1, T2> implements Comparable<Two<T1, T2>> {

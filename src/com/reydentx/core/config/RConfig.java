@@ -1,7 +1,3 @@
-/*
- * Copyright (c) 2012-2016 by Zalo Group.
- * All Rights Reserved.
- */
 package com.reydentx.core.config;
 
 import com.reydentx.core.common.CompositeKey;
@@ -27,7 +23,6 @@ import org.apache.commons.configuration.ConfigurationException;
 import org.apache.commons.configuration.FileConfiguration;
 import org.apache.commons.configuration.XMLConfiguration;
 import org.cliffc.high_scale_lib.NonBlockingHashMap;
-
 
 public class RConfig {
 

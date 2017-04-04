@@ -1,13 +1,5 @@
-/*
- * Copyright (c) 2012-2016 by Zalo Group.
- * All Rights Reserved.
- */
 package com.reydentx.exception;
 
-/**
- *
- * @author namnq
- */
 public class NotExistException extends Exception {
 
 	public NotExistException() {
