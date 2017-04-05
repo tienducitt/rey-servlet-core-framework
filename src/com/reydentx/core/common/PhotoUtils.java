@@ -17,6 +17,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
+import org.apache.commons.codec.binary.Base64;
 import org.imgscalr.Scalr;
 
 /**
@@ -24,6 +25,15 @@ import org.imgscalr.Scalr;
  * @author ducnt3
  */
 public class PhotoUtils {
+
+        public static byte[] fromBlobString(String blobImage) {
+                if (blobImage.startsWith("data:image")) {
+                        String imgData = blobImage.substring(blobImage.indexOf(",") + 1, blobImage.length()) + "";
+                        return Base64.decodeBase64(imgData);
+                }
+
+                return null;
+        }
 
         public static boolean isValidImage(byte[] data) {
                 if (isPNG(data)) {
@@ -322,7 +332,7 @@ public class PhotoUtils {
                 } catch (IOException e) {
                         e.printStackTrace();
                 }
-                
+
                 return null;
         }
 }
